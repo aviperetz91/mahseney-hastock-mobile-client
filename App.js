@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+
+import ShopNavigator from './src/navigation/ShopNavigator';
 
 const App = () => {
   return (
-    <View>
-      <Text>Main Screen!</Text>
-    </View>
+    <ShopNavigator />
   );
 };
 
