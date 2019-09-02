@@ -18,7 +18,7 @@ const ProductItem = props => {
                     </View>
                     <View style={styles.buttonsContainer}>
                         <View style={styles.button}>
-                            <Button color={Colors.primary} title="פרטים" onPress={props.onViewDetails} />
+                            <Button color={Colors.secondary} title="פרטים" onPress={props.onViewDetails} />
                         </View>
                         <View style={styles.button}>
                             <Button color={Colors.primary} title="הוסף לעגלה" onPress={props.onAddToCart} />

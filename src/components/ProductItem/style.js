@@ -13,13 +13,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ccc",
         borderRadius: 10,
-        height: 350,
+        height: 300,
         marginVertical: 15,
-        marginHorizontal: 20
+        marginHorizontal: 30
     },
     imageContainer: {
         width: "100%",
-        height: "70%",
+        height: "65%",
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
         borderTopLeftRadius: 10,
@@ -27,36 +27,37 @@ const styles = StyleSheet.create({
         overflow: "hidden"
     },
     image: {
+        backgroundColor: "white",
         width: "100%",
         height: "100%",
-        resizeMode: "stretch",
+        resizeMode: "contain",
     },
     contentContainer: {
-        height: "30%",
+        height: "35%",
         backgroundColor: "white",
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
     },
     textContainer: {
         alignItems: "center",
-        marginBottom: 5,
+        marginBottom: 8,
     },  
     title: {
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: "bold",
         marginVertical: 4,
     },
     price: {
-        fontSize: 15,
+        fontSize: 14,
         color: "#888"
     },
     buttonsContainer: {
         flexDirection: "row",
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "center",
     },
     button: {
-        width: "30%"
+        width: "30%",
     }
 })
 

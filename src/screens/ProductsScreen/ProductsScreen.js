@@ -21,7 +21,10 @@ class ProductsScreen extends Component {
                             image={product.item.imageUrl}
                             title={product.item.title}
                             price={product.item.price}
-                            onViewDetail={() => {}}
+                            onViewDetails={() => this.props.navigation.navigate("ProductDetailsScreen", {
+                                id: product.item.id,
+                                title: product.item.title
+                            })}
                             onAddToCart={() => {}}
                         />
                     )
