@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import styles from './style';
 import Colors from '../../constants/Colors';
+import * as cartActions from '../../store/actions/cartActions';
 
 class ProductDeatailsScreen extends Component {
 
@@ -25,10 +26,10 @@ class ProductDeatailsScreen extends Component {
                 <Text style={styles.description}>{selectedProduct.description}</Text>
                 <View style={styles.buttonsContainer}>
                     <View style={styles.button}>
-                        <Button color={Colors.primary} title="הוסף לעגלה" onPress={() => {}}/>
+                        <Button color={Colors.primary} title="הוסף לעגלה" onPress={() => this.props.onAddToCart(selectedProduct)}/>
                     </View>
                     <View style={styles.button}>
-                        <Button color={Colors.warning} title="ערוך" onPress={() => {}}/>
+                        <Button color={Colors.warning} title="ערוך" onPress={() => this.props.navigation.navigate("CartScreen")}/>
                     </View>
                     <View style={styles.button}>
                         <Button color={Colors.danger} title="מחק" onPress={() => {}}/>
@@ -46,4 +47,10 @@ mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(ProductDeatailsScreen);
+mapDispatchToProps = dispatch => {
+    return {
+        onAddToCart: product => dispatch(cartActions.addToCart(product)) // dispatch({type: ACTION_NAME, payload})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDeatailsScreen);

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
 import ProductItem from '../../components/ProductItem';
+import * as cartActions from '../../store/actions/cartActions';
 
 class ProductsScreen extends Component {
 
@@ -25,7 +26,7 @@ class ProductsScreen extends Component {
                                 id: product.item.id,
                                 title: product.item.title
                             })}
-                            onAddToCart={() => {}}
+                            onAddToCart={() => this.props.onAddToCart(product.item)}
                         />
                     )
                 }}
@@ -40,4 +41,10 @@ mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(ProductsScreen);
+mapDispatchToProps = dispatch => {
+    return {
+        onAddToCart: product => dispatch(cartActions.addToCart(product))  // dispatch({type: ACTION_NAME, payload})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsScreen);

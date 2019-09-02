@@ -6,9 +6,11 @@ import {name as appName} from './app.json';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import productsReducer from './src/store/reducers/productsReducer';
+import cartReducer from './src/store/reducers/cartReducer';
 
 const rootReducer = combineReducers({
-    products: productsReducer
+    products: productsReducer,
+    cart: cartReducer
 })
 
 const store = createStore(rootReducer);
