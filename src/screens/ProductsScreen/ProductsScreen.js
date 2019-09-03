@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
+import HeaderButton from '../../components/HeaderButton';
 import ProductItem from '../../components/ProductItem';
 import * as cartActions from '../../store/actions/cartActions';
 
 class ProductsScreen extends Component {
 
-    static navigationOptions = {
-        headerTitle: "מוצרים"
+    static navigationOptions = ({navigation}) => {
+        return {
+            headerTitle: "מוצרים",
+            headerRight: 
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Cart"
+                        iconName="shopping-cart"
+                        onPress={() => navigation.navigate("CartScreen")}
+                    />
+                </HeaderButtons>
+        }
     }
 
     render() {

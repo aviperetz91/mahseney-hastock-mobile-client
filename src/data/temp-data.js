@@ -27,7 +27,7 @@ const PRODUCTS = [
     "מיקסר",
     "https://res.cloudinary.com/my-gallery/image/upload/v1557448617/e2l2sqa6kom8xu7rodru.jpg",
     "מיקסר ידני מעולה, במחיר מבצע",
-    45.00
+    49.99
   ),
   new Product(
     "p5",

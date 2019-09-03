@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
-    body: {
-        backgroundColor: "#f4f4f4"
+    screen: {
+        backgroundColor: Colors.light
     },
     product: {
         shadowColor: "black",

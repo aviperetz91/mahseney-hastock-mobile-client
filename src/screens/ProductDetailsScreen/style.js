@@ -2,18 +2,14 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     imageContainer: {
-        borderTopWidth: 2,
-        borderRightWidth: 1,
-        borderLeftWidth: 1,
-        borderBottomWidth: 1,
         borderColor: "transparent",
-        borderBottomColor: "#ccc",
         shadowColor: "black",
         shadowOpacity: 0.26,
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 10,
         shadowRadius: 5,
-        elevation: 2
+        elevation: 5,
+        backgroundColor: "white"
     },  
     image: {
         width:"100%",
