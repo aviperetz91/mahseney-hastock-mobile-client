@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     summary: {
-        direction: "rtl",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",

@@ -3,6 +3,7 @@ import { View, Text, Button, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+import * as cartActions from '../../store/actions/cartActions';
 import Colors from '../../constants/Colors';
 import styles from './style';
 import CartItem from '../../components/CartItem';
@@ -14,11 +15,16 @@ class CartScreen extends Component {
     }
 
     render() {
+        let total = this.props.totalAmount;
+        if(total < 0) {
+            total = 0.00
+        }
+            
         return(
             <View style={styles.screen}>
                 <View style={styles.summary}>
                     <Text style={styles.summaryText}>
-                        סה"כ:<Text style={styles.amount}>   {this.props.totalAmount} <Icon size={15} name="shekel-sign" color={Colors.primary}  /></Text>
+                        סה"כ:<Text style={styles.amount}>   {total.toFixed(2)} <Icon size={15} name="shekel-sign" color={Colors.primary}  /></Text>
                     </Text>
                     <Button disabled={this.props.items.length === 0} color={Colors.warning} title="הזמן עכשיו" />
                 </View>
@@ -32,7 +38,7 @@ class CartScreen extends Component {
                                 title={cartItem.item.title}
                                 amount={cartItem.item.sum}
                                 image={cartItem.item.image}
-                                onRemove={() => {}}
+                                onRemove={() => this.props.onRemove(cartItem.item)}
                             />
                         )
                     }}   
@@ -49,7 +55,10 @@ mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(CartScreen);
+mapDispatchToProps = dispatch => {
+    return {
+        onRemove: item => dispatch(cartActions.removeFromCart(item))
+    }
+}
 
-
-{/* <Button title="check" onPress={() => console.log(this.props.totalAmount)} /> */}
+export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);

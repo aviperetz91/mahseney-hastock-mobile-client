@@ -14,7 +14,7 @@ const CartItem = (props) => {
                 <Text style={styles.text}>  {props.title}</Text>
             </View>
             <View style={styles.contentContainer}>
-                <Text style={styles.text}><Icon name="shekel-sign" size={12}/> {props.amount}</Text>
+                <Text style={styles.text}><Icon name="shekel-sign" size={12}/> {props.amount.toFixed(2)}</Text>
                 <TouchableOpacity onPress={props.onRemove} style={styles.deleteButton}>
                     <Icon name="trash" size={23} color={Colors.danger} />
                 </TouchableOpacity>
