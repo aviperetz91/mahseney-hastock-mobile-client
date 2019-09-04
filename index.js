@@ -7,12 +7,14 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import productsReducer from './src/store/reducers/productsReducer';
 import cartReducer from './src/store/reducers/cartReducer';
+import ordersReducer from './src/store/reducers/ordersReducer';
 
 I18nManager.allowRTL(true)
 
 const rootReducer = combineReducers({
     products: productsReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    orders: ordersReducer
 })
 
 const store = createStore(rootReducer);

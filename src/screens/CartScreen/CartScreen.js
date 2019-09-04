@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import * as cartActions from '../../store/actions/cartActions';
+import * as ordersActions from '../../store/actions/ordersActions';
 import Colors from '../../constants/Colors';
 import styles from './style';
 import CartItem from '../../components/CartItem';
@@ -26,7 +27,12 @@ class CartScreen extends Component {
                     <Text style={styles.summaryText}>
                         סה"כ:<Text style={styles.amount}>   {total.toFixed(2)} <Icon size={15} name="shekel-sign" color={Colors.primary}  /></Text>
                     </Text>
-                    <Button disabled={this.props.items.length === 0} color={Colors.warning} title="הזמן עכשיו" />
+                    <Button 
+                        title="הזמן עכשיו"
+                        disabled={this.props.items.length === 0} 
+                        color={Colors.warning}
+                        onPress={() => this.props.onAddOrder(this.props.items, this.props.totalAmount)}
+                    />
                 </View>
                 <FlatList 
                     data={this.props.items}
@@ -38,7 +44,7 @@ class CartScreen extends Component {
                                 title={cartItem.item.title}
                                 amount={cartItem.item.sum}
                                 image={cartItem.item.image}
-                                onRemove={() => this.props.onRemove(cartItem.item)}
+                                onRemove={() => this.props.onRemoveFromCart(cartItem.item)}
                             />
                         )
                     }}   
@@ -51,13 +57,15 @@ class CartScreen extends Component {
 mapStateToProps = state => {
     return {
         items: state.cart.items,
-        totalAmount: state.cart.totalAmount
+        totalAmount: state.cart.totalAmount,
+        orders: state.orders.orders
     }
 }
 
 mapDispatchToProps = dispatch => {
     return {
-        onRemove: item => dispatch(cartActions.removeFromCart(item))
+        onRemoveFromCart: item => dispatch(cartActions.removeFromCart(item)), // dispatch({type: ACTION_NAME, payload})
+        onAddOrder: (items, totalAmount) => dispatch(ordersActions.addOrder(items, totalAmount))
     }
 }
 

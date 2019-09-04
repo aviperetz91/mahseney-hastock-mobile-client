@@ -8,7 +8,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 17,
         marginVertical:18,
         height: 60,
-        borderRadius: 10
+        borderRadius: 50,
+        elevation: 10,
+        shadowColor: "black",
+        shadowOpacity: 0.26,
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 10,
     },
     boxContainer: {
         justifyContent: "center",
