@@ -1,6 +1,7 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+import HomeScreen from '../screens/HomeScreen/';
 import ProductsScreen from '../screens/ProductsScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import CartScreen from '../screens/CartScreen';
@@ -9,6 +10,7 @@ import Colors from '../constants/Colors'
 
 const ProductsNavigator = createStackNavigator(
     {
+        HomeScreen: HomeScreen,
         ProductsScreen: ProductsScreen,
         ProductDetailsScreen: ProductDetailsScreen,
         CartScreen: CartScreen,
@@ -20,9 +22,7 @@ const ProductsNavigator = createStackNavigator(
             },
             headerTintColor: "white",
             headerTitleStyle: {
-                fontSize: 20,
-                flex: 1,
-                textAlign: "center"
+                fontSize: 18,
             }
         }
     }

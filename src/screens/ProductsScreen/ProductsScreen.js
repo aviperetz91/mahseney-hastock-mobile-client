@@ -11,7 +11,7 @@ class ProductsScreen extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: "מוצרים",
+            headerTitle: navigation.getParam("categoryTitle"),
             headerRight: 
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
                     <Item 
@@ -19,14 +19,16 @@ class ProductsScreen extends Component {
                         iconName="shopping-cart"
                         onPress={() => navigation.navigate("CartScreen")}
                     />
-                </HeaderButtons>
+                </HeaderButtons>,
         }
     }
 
     render() {
+        const category = this.props.navigation.getParam("categoryTitle");
+        const products = this.props.products.filter(prod => prod.category === category )
         return (
             <FlatList 
-                data={this.props.products}
+                data={products}
                 keyExtractor={product => product.id}
                 renderItem={product => {
                     return (

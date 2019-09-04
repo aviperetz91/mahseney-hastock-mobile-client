@@ -1,7 +1,7 @@
-import PRODCUTS from '../../data/temp-data';
+import { PRODUCTS } from '../../data/temp-data';
 
 const initialState = {
-    products: PRODCUTS
+    products: PRODUCTS
 } 
 
 const productsReducer = (state=initialState, action) => {
