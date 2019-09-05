@@ -1,14 +1,28 @@
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import HomeScreen from '../screens/HomeScreen/';
 import ProductsScreen from '../screens/ProductsScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import CartScreen from '../screens/CartScreen';
+import OrdersScreen from '../screens/OrdersScreen';
 
-import Colors from '../constants/Colors'
+import Colors from '../constants/Colors';
 
-const ProductsNavigator = createStackNavigator(
+const navOptions = {
+    headerStyle: {
+        backgroundColor: Colors.primary
+    },
+    headerTintColor: "white",
+    headerTitleStyle: {
+        fontSize: 18,
+    }
+}
+
+const MainNavigator = createStackNavigator(
     {
         HomeScreen: HomeScreen,
         ProductsScreen: ProductsScreen,
@@ -16,16 +30,54 @@ const ProductsNavigator = createStackNavigator(
         CartScreen: CartScreen,
     },
     {
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: Colors.primary
-            },
-            headerTintColor: "white",
-            headerTitleStyle: {
-                fontSize: 18,
-            }
+        navigationOptions: {
+            drawerIcon: drawerConfig => (
+                <Icon name="home" size={23} color={drawerConfig.tintColor} />
+            ) 
+        },
+        defaultNavigationOptions: navOptions
+    }
+)
+
+const OrdersNavigator = createStackNavigator(
+    {
+        OrdersScreen: OrdersScreen,
+    },
+    {
+        navigationOptions: {
+            drawerIcon: drawerConfig => (
+                <Icon name="list-ol" size={23} color={drawerConfig.tintColor} />
+            ) 
+        },
+        defaultNavigationOptions: navOptions
+    }    
+)
+
+const CartNavigator = createStackNavigator(
+    {
+        CartScreen: CartScreen,
+    },
+    {
+        navigationOptions: {
+            drawerIcon: drawerConfig => (
+                <Icon name="shopping-cart" size={23} color={drawerConfig.tintColor} />
+            ) 
+        },
+        defaultNavigationOptions: navOptions
+    }    
+)
+
+const RootNavigator = createDrawerNavigator(
+    {
+        ראשי: MainNavigator,
+        עגלה: CartNavigator,
+        הזמנות: OrdersNavigator,
+    },
+    {
+        contentOptions: {
+            activeTintColor: Colors.primary
         }
     }
 )
 
-export default createAppContainer(ProductsNavigator)
+export default createAppContainer(RootNavigator);

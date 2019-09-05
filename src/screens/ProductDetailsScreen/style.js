@@ -1,15 +1,19 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: Colors.light
+    },
     imageContainer: {
-        borderColor: "transparent",
         shadowColor: "black",
         shadowOpacity: 0.26,
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 10,
-        shadowRadius: 5,
+        borderRadius: 10,
         elevation: 5,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        margin: 16,
     },  
     image: {
         width:"100%",
@@ -20,7 +24,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: "#888",
         textAlign: "center",
-        marginTop: 20
     },
     description: {
         textAlign: "center",
@@ -32,7 +35,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        // marginBottom: 10
+        marginBottom: 10
     },
     button: {
         width: "25%"

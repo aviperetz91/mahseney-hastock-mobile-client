@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Button, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
+import HeaderButton from '../../components/HeaderButton';
 import * as cartActions from '../../store/actions/cartActions';
 import * as ordersActions from '../../store/actions/ordersActions';
 import Colors from '../../constants/Colors';
@@ -11,8 +13,19 @@ import CartItem from '../../components/CartItem';
 
 class CartScreen extends Component {
 
-    static navigationOptions = {
-        headerTitle: "העגלה שלי"
+    static navigationOptions = ({navigation}) => {
+        return {
+            headerTitle: "העגלה שלי",
+            headerLeft: 
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Menu"
+                        iconName="bars"
+                        onPress={() => navigation.toggleDrawer()}
+                    />
+                </HeaderButtons>,
+        }
+        
     }
 
     render() {
@@ -44,6 +57,7 @@ class CartScreen extends Component {
                                 title={cartItem.item.title}
                                 amount={cartItem.item.sum}
                                 image={cartItem.item.image}
+                                deleteable={true}
                                 onRemove={() => this.props.onRemoveFromCart(cartItem.item)}
                             />
                         )
@@ -58,7 +72,6 @@ mapStateToProps = state => {
     return {
         items: state.cart.items,
         totalAmount: state.cart.totalAmount,
-        orders: state.orders.orders
     }
 }
 

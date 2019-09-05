@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './style';
 
-const CategoryBpx = (props) => {
+const CategoryBox = (props) => {
     return (
         <TouchableOpacity style={styles.gridItem} onPress={props.onSelect} activeOpacity={0.6} >
             <View style={styles.boxContainer}>
@@ -17,4 +17,4 @@ const CategoryBpx = (props) => {
     )
 }
 
-export default CategoryBpx;
+export default CategoryBox;

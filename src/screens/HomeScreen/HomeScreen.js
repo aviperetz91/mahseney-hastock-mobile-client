@@ -1,47 +1,52 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
+import HeaderButton from '../../components/HeaderButton';
 import styles from './style';
 import { CATEGORIES } from '../../data/temp-data';
 import CategoryBox from '../../components/CategoryBox';
 
 class HomeScreen extends Component {
 
-    static navigationOptions = {
-        headerTitle: "מחסני הסטוק",
-        headerTitleStyle: {
-            fontSize: 30,
-            fontWeight: "bold",
-            flex: 1,
-            textAlign: "center"
+    static navigationOptions = ({navigation}) => {
+        return {
+            headerTitle: "מחסני הסטוק",
+            headerTitleStyle: {
+                fontSize: 32,
+                fontWeight: "bold",
+            },
+            headerLeft: 
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Menu"
+                        iconName="bars"
+                        onPress={() => navigation.toggleDrawer()}
+                    />
+                </HeaderButtons>,
         }
     }
 
     render() {
         return (
-                <View style={styles.screen}>
-                    {/* <View style={styles.welcomTextContainer}>
-                        <Text style={styles.welcomText}>ברוכים הבאים למחסני הסטוק</Text>
-                        <Text style={styles.welcomText}>כל מה שצריך לבית.</Text>
-                        <Text style={styles.welcomText}>מוצרים גדולים במחירים קטנים!</Text>
-                    </View> */}
-                    <FlatList 
-                        numColumns={3}
-                        data={CATEGORIES}
-                        keyExtractor={category => category.id}
-                        renderItem={category => {
-                            return (
-                                <CategoryBox 
-                                    title={category.item.title}
-                                    iconName={category.item.iconName}
-                                    onSelect={() => this.props.navigation.navigate("ProductsScreen",{
-                                        categoryTitle: category.item.title
-                                    })}
-                                />
-                            )
-                        }}
-                    />
-                </View>  
+            <View style={styles.screen}>
+                <FlatList 
+                    numColumns={3}
+                    data={CATEGORIES}
+                    keyExtractor={category => category.id}
+                    renderItem={category => {
+                        return (
+                            <CategoryBox 
+                                title={category.item.title}
+                                iconName={category.item.iconName}
+                                onSelect={() => this.props.navigation.navigate("ProductsScreen",{
+                                categoryTitle: category.item.title
+                                })}
+                            />
+                        )
+                    }}
+                />
+            </View>  
         )
     }
 }

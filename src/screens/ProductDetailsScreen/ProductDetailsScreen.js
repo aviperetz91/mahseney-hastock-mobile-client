@@ -19,22 +19,22 @@ class ProductDeatailsScreen extends Component {
         const productId = this.props.navigation.getParam("id");
         const selectedProduct = this.props.products.find(product => product.id === productId);
         return (
-            <ScrollView>
+            <ScrollView style={styles.container}>
                 <View style={styles.imageContainer}>
                     <Image style={styles.image} source={{uri: selectedProduct.imageUrl}}/>
                 </View>
                 <Text style={styles.price}> <Icon name="shekel-sign" color="#888" size={20}/> {selectedProduct.price}</Text>
                 <Text style={styles.description}>{selectedProduct.description}</Text>
                 <View style={styles.buttonsContainer}>
-                    <View style={styles.button}>
+                    {/* <View style={styles.button}>
                         <Button color={Colors.warning} title="ערוך" onPress={() => {}}/>
-                    </View>
+                    </View> */}
                     <View style={styles.button}>
                         <Button color={Colors.primary} title="הוסף לעגלה" onPress={() => this.props.onAddToCart(selectedProduct)}/>
                     </View>
-                    <View style={styles.button}>
+                    {/* <View style={styles.button}>
                         <Button color={Colors.danger} title="מחק" onPress={() => {}}/>
-                    </View>
+                    </View> */}
                 </View>
             </ScrollView>
             
