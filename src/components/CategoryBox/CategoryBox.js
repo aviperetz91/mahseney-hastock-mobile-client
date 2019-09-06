@@ -6,12 +6,13 @@ import styles from './style';
 
 const CategoryBox = (props) => {
     return (
-        <TouchableOpacity style={styles.gridItem} onPress={props.onSelect} activeOpacity={0.6} >
+        <TouchableOpacity style={{...styles.gridItem, backgroundColor: props.color}} onPress={props.onSelect} activeOpacity={0.6} >
             <View style={styles.boxContainer}>
-                <Icon name={props.iconName} size={40} color="white" />
-            </View>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>{props.title}</Text>
+                <Icon name={props.iconName} size={60} color="white" />
+            
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>{props.title}</Text>
+                </View>
             </View>
         </TouchableOpacity>
     )

@@ -1,15 +1,16 @@
 import Product from '../models/product';
 
 export const CATEGORIES = [
-  { id: "1" ,title: "כלי פלסטיק", iconName: "archive" },
-  { id: "2" ,title: "חד פעמי", iconName: "utensils" },
-  { id: "3" ,title: "מטבח ואפייה", iconName: "utensil-spoon" },
-  { id: "4" ,title: "כלי עבודה", iconName: "tools" },
-  { id: "5" ,title: "מוצרי ניקיון", iconName: "spray-can" },
-  { id: "6" ,title: "מוצרי חשמל", iconName: "charging-station" },
-  { id: "7" ,title: "ריהוט ונוי", iconName: "chair" },
-  { id: "8" ,title: "טקסטיל", iconName: "bed" },
-  { id: "9" ,title: "צעצועים", iconName: "basketball-ball" },
+  { id: "1" ,title: "כלי פלסטיק", iconName: "archive", color: "#f5428d" },
+  { id: "2" ,title: "חד פעמי", iconName: "utensils", color: "#f54242" },
+  { id: "3" ,title: "מטבח ואפייה", iconName: "utensil-spoon", color: "#41d95d" },
+  { id: "4" ,title: "כלי עבודה", iconName: "tools", color: "#368dff" },
+  { id: "5" ,title: "מוצרי ניקיון", iconName: "spray-can", color: "#9eecff" },
+  { id: "6" ,title: "מוצרי חשמל", iconName: "charging-station", color: "#f5d142" },
+  { id: "7" ,title: "ריהוט ונוי", iconName: "chair", color: "#b9ffb0" },
+  { id: "8" ,title: "טקסטיל", iconName: "bed", color: "#ffc7ff" },
+  { id: "9" ,title: "מוצרי אמבט", iconName: "shower", color: "#47fced" },
+  { id: "10" ,title: "צעצועים", iconName: "basketball-ball", color: "#f5a442" },
 ]
 
 export const PRODUCTS = [
@@ -94,3 +95,21 @@ export const PRODUCTS = [
     14.99
   ),
 ];
+
+export const IMAGES = [
+  "https://mahseney-hastock-92765.herokuapp.com/resources/img/i244.jpg",
+  "https://mahseney-hastock-92765.herokuapp.com/resources/img/i3.jpg",
+  "https://mahseney-hastock-92765.herokuapp.com/resources/img/i14.jpg",
+  "https://mahseney-hastock-92765.herokuapp.com/resources/img/i13.jpg",
+  "https://mahseney-hastock-92765.herokuapp.com/resources/img/i5.jpg",
+  "https://mahseney-hastock-92765.herokuapp.com/resources/img/i7.jpg",
+]
+
+// export const IMAGES = [
+//   "https://i.ytimg.com/vi/KCpWzgXALLg/maxresdefault.jpg",
+//   "https://res.cloudinary.com/exite/image/upload/f_auto/exitetogo/www.secal.co.il/gallery/sitepics/3AC57C00-4439-728A-409C-5E1411691B40.jpg",
+//   "https://www.kipa.co.il/userFiles/296656_94aa0597694f124cd73bdf355bacf879.jpg",
+//   "https://www.21.tv/ArutzV2Images/PICS_500X500/48573.jpg",
+//   "https://www.hashikma-rishon.co.il/wp-content/uploads/2018/11/5f215cff49f7f1ab9b60094d465d378f-e1543435275773.jpg",
+//   "https://anima-uploads.s3.amazonaws.com/5bf2d35eaf33d2000b99b102/5d21d25581549dad72fcb2c0/5d21d256aae9d73c55860b5f/img/artboard320-imgcat1@2x.jpg",
+// ]

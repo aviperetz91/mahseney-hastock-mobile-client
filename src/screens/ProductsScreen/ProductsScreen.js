@@ -16,8 +16,8 @@ class ProductsScreen extends Component {
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
                     <Item 
                         title="Cart"
-                        iconName="shopping-cart"
-                        onPress={() => navigation.navigate("CartScreen")}
+                        iconName="search"
+                        onPress={() => {}}
                     />
                 </HeaderButtons>,
         }

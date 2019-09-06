@@ -12,27 +12,42 @@ class OrderItem extends Component {
         showDetails: false
     }
 
-    displayDetails = () => {
-        if (this.state.showDetails){
-            return (
-                <View style={styles.itemContainer}>
-                    {this.props.items.map(cartItem => (
-                        <CartItem 
-                            key={cartItem.id}
-                            quantity={cartItem.quantity}
-                            amount={cartItem.sum}
-                            title={cartItem.title}
-                            image={cartItem.image}
-                        />
-                    )
-                    )}
-                </View>
-            )
-        }
-        else return;
-    }
+    // displayDetails = () => {
+    //     if (this.state.showDetails){
+    //         return (
+    //             <View style={styles.itemContainer}>
+    //                 {this.props.items.map(cartItem => (
+    //                     <CartItem 
+    //                         key={cartItem.id}
+    //                         quantity={cartItem.quantity}
+    //                         amount={cartItem.sum}
+    //                         title={cartItem.title}
+    //                         image={cartItem.image}
+    //                     />
+    //                 )
+    //                 )}
+    //             </View>
+    //         )
+    //     }
+    //     else return;
+    // }
 
     render() {
+        let display;
+        if(this.state.showDetails){
+            display = 
+                <View style={styles.itemContainer}>
+                    {this.props.items.map(cartItem => (
+                    <CartItem 
+                        key={cartItem.id}
+                        quantity={cartItem.quantity}
+                        amount={cartItem.sum}
+                        title={cartItem.title}
+                        image={cartItem.image}
+                    />
+                ))} 
+                </View>
+        }
         return (
             <View style={styles.orderItem}> 
                 <View style={styles.summary}>
@@ -49,7 +64,7 @@ class OrderItem extends Component {
                             const toggleShowDetails = !this.state.showDetails;
                             this.setState({showDetails: toggleShowDetails})
                         }}/>
-                    {this.displayDetails()}
+                    {display}
                 </View>
             </View>
         )

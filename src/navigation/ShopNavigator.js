@@ -5,6 +5,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import HomeScreen from '../screens/HomeScreen/';
+import CategoriesScreen from '../screens/CategoriesScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import CartScreen from '../screens/CartScreen';
@@ -27,12 +28,26 @@ const MainNavigator = createStackNavigator(
         HomeScreen: HomeScreen,
         ProductsScreen: ProductsScreen,
         ProductDetailsScreen: ProductDetailsScreen,
-        CartScreen: CartScreen,
+        
     },
     {
         navigationOptions: {
             drawerIcon: drawerConfig => (
                 <Icon name="home" size={23} color={drawerConfig.tintColor} />
+            ) 
+        },
+        defaultNavigationOptions: navOptions
+    }
+)
+
+const CategoriesNavigatopr = createStackNavigator(
+    {
+        CategoriesScreen: CategoriesScreen
+    },
+    {
+        navigationOptions: {
+            drawerIcon: drawerConfig => (
+                <Icon name="th-large" size={23} color={drawerConfig.tintColor} />
             ) 
         },
         defaultNavigationOptions: navOptions
@@ -70,6 +85,7 @@ const CartNavigator = createStackNavigator(
 const RootNavigator = createDrawerNavigator(
     {
         ראשי: MainNavigator,
+        קטגוריות: CategoriesNavigatopr,
         עגלה: CartNavigator,
         הזמנות: OrdersNavigator,
     },

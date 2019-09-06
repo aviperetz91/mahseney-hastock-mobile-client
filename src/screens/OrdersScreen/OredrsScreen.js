@@ -12,14 +12,6 @@ class OrdersScreen extends Component {
     static navigationOptions = ({navigation}) => {
         return {
             headerTitle: "ההזמנות שלי",
-            headerRight: 
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item 
-                        title="Cart"
-                        iconName="shopping-cart"
-                        onPress={() => navigation.navigate("CartScreen")}
-                    />
-                </HeaderButtons>,
             headerLeft: 
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item 
