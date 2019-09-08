@@ -10,6 +10,7 @@ import ProductsScreen from '../screens/ProductsScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import CartScreen from '../screens/CartScreen';
 import OrdersScreen from '../screens/OrdersScreen';
+import EditProductScreen from '../screens/EditProductScreen';
 
 import Colors from '../constants/Colors';
 
@@ -28,7 +29,7 @@ const MainNavigator = createStackNavigator(
         HomeScreen: HomeScreen,
         ProductsScreen: ProductsScreen,
         ProductDetailsScreen: ProductDetailsScreen,
-        
+        EditProductScreen: EditProductScreen
     },
     {
         navigationOptions: {
@@ -54,20 +55,6 @@ const CategoriesNavigatopr = createStackNavigator(
     }
 )
 
-const OrdersNavigator = createStackNavigator(
-    {
-        OrdersScreen: OrdersScreen,
-    },
-    {
-        navigationOptions: {
-            drawerIcon: drawerConfig => (
-                <Icon name="list-ol" size={23} color={drawerConfig.tintColor} />
-            ) 
-        },
-        defaultNavigationOptions: navOptions
-    }    
-)
-
 const CartNavigator = createStackNavigator(
     {
         CartScreen: CartScreen,
@@ -76,6 +63,20 @@ const CartNavigator = createStackNavigator(
         navigationOptions: {
             drawerIcon: drawerConfig => (
                 <Icon name="shopping-cart" size={23} color={drawerConfig.tintColor} />
+            ) 
+        },
+        defaultNavigationOptions: navOptions
+    }    
+)
+
+const OrdersNavigator = createStackNavigator(
+    {
+        OrdersScreen: OrdersScreen,
+    },
+    {
+        navigationOptions: {
+            drawerIcon: drawerConfig => (
+                <Icon name="list-ol" size={23} color={drawerConfig.tintColor} />
             ) 
         },
         defaultNavigationOptions: navOptions

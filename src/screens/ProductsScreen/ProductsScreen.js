@@ -15,7 +15,7 @@ class ProductsScreen extends Component {
             headerRight: 
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
                     <Item 
-                        title="Cart"
+                        title="Search"
                         iconName="search"
                         onPress={() => {}}
                     />

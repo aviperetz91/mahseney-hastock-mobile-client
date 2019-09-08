@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     image: {
-      width: 360,
+      width: 300,
       height: 300,
       borderWidth: 2,
       borderColor: Colors.dark,

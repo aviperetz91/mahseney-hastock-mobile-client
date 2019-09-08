@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, Image, Button } from 'react-native';
+import { ScrollView, View, Text, Image, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './style';
 import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/cartActions';
+import * as productsActions from '../../store/actions/productsActions';
 
 class ProductDeatailsScreen extends Component {
 
@@ -15,26 +16,54 @@ class ProductDeatailsScreen extends Component {
         }
     }
 
+    deleteHandler = productId => {
+        Alert.alert("מחיקת מוצר", "האם אתה בטוח שברצונך למחור את המוצר?",
+            [
+                {text: "לא!!", style: "negative" },
+                {
+                    text: "כן, רוצה למחוק",
+                    onPress: () => {
+                        this.props.onDeleteProduct(productId)
+                        this.props.navigation.goBack();
+                    }
+                }
+            ]
+        )
+    }
+
     render() {
         const productId = this.props.navigation.getParam("id");
         const selectedProduct = this.props.products.find(product => product.id === productId);
+        const copiedProduct = {...selectedProduct}
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={{uri: selectedProduct.imageUrl}}/>
+                    <Image style={styles.image} source={{uri: copiedProduct.imageUrl}}/>
                 </View>
-                <Text style={styles.price}> <Icon name="shekel-sign" color="#888" size={20}/> {selectedProduct.price}</Text>
-                <Text style={styles.description}>{selectedProduct.description}</Text>
+                <Text style={styles.price}> <Icon name="shekel-sign" color="#888" size={20}/> {copiedProduct.price}</Text>
+                <Text style={styles.description}>{copiedProduct.description}</Text>
                 <View style={styles.buttonsContainer}>
-                    {/* <View style={styles.button}>
-                        <Button color={Colors.warning} title="ערוך" onPress={() => {}}/>
-                    </View> */}
                     <View style={styles.button}>
-                        <Button color={Colors.primary} title="הוסף לעגלה" onPress={() => this.props.onAddToCart(selectedProduct)}/>
+                        <Button 
+                            color={Colors.warning} 
+                            title="ערוך" 
+                            onPress={() => this.props.navigation.navigate("EditProductScreen", {
+                                id: copiedProduct.id
+                            }
+                        )}/>
                     </View>
-                    {/* <View style={styles.button}>
-                        <Button color={Colors.danger} title="מחק" onPress={() => {}}/>
-                    </View> */}
+                    <View style={styles.button}>
+                        <Button 
+                            color={Colors.primary} 
+                            title="הוסף לעגלה" 
+                            onPress={() => this.props.onAddToCart(copiedProduct)}/>
+                    </View>
+                    <View style={styles.button}>
+                        <Button 
+                            color={Colors.danger} 
+                            title="מחק" 
+                            onPress={() => this.deleteHandler(productId)}/>
+                    </View>
                 </View>
             </ScrollView>
             
@@ -50,7 +79,8 @@ mapStateToProps = state => {
 
 mapDispatchToProps = dispatch => {
     return {
-        onAddToCart: product => dispatch(cartActions.addToCart(product)) // dispatch({type: ACTION_NAME, payload})
+        onAddToCart: product => dispatch(cartActions.addToCart(product)), // dispatch({type: ACTION_NAME, payload})
+        onDeleteProduct: productId => dispatch(productsActions.deleteProduct(productId))
     }
 }
 

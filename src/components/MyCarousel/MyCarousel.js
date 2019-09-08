@@ -46,7 +46,7 @@ class MyCarousel extends Component {
                         ref={(c) => { this.carousel = c; }}
                         data={IMAGES}
                         sliderWidth={500}
-                        itemWidth={360}
+                        itemWidth={300}
                         onSnapToItem = { index => this.setState({activeSlide:index}) }
                         renderItem={(image) => {
                             return (

@@ -12,7 +12,8 @@ class HomeScreen extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <LogoTitle />,
+            // headerTitle: <LogoTitle />,
+            headerTitle: "מחסני הסטוק",
             headerTitleStyle: {
                 fontSize: 32,
                 fontWeight: "bold",
@@ -25,6 +26,14 @@ class HomeScreen extends Component {
                         onPress={() => navigation.toggleDrawer()}
                     />
                 </HeaderButtons>,
+            headerRight:
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item 
+                    title="Add"
+                    iconName="pencil-alt"
+                    onPress={() => navigation.navigate("EditProductScreen")}
+                />
+            </HeaderButtons>
         }
     }
 
@@ -32,7 +41,7 @@ class HomeScreen extends Component {
         return (
             <ScrollView contentContainerStyle={styles.screen}>
                 <View style={styles.slider}>
-                    <MyCarousel layout={'default'}/>
+                    {/* <MyCarousel layout={'default'}/> */}
                 </View>
                 
             </ScrollView>  
