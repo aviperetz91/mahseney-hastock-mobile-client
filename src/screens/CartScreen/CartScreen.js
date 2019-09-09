@@ -10,6 +10,7 @@ import * as ordersActions from '../../store/actions/ordersActions';
 import Colors from '../../constants/Colors';
 import styles from './style';
 import CartItem from '../../components/CartItem';
+import Card from '../../components/Card';
 
 class CartScreen extends Component {
 
@@ -36,7 +37,7 @@ class CartScreen extends Component {
             
         return(
             <View style={styles.screen}>
-                <View style={styles.summary}>
+                <Card style={styles.summary}>
                     <Text style={styles.summaryText}>
                         סה"כ:<Text style={styles.amount}>   {total.toFixed(2)} <Icon size={15} name="shekel-sign" color={Colors.primary}  /></Text>
                     </Text>
@@ -46,7 +47,7 @@ class CartScreen extends Component {
                         color={Colors.warning}
                         onPress={() => this.props.onAddOrder(this.props.items, this.props.totalAmount)}
                     />
-                </View>
+                </Card>
                 <FlatList 
                     data={this.props.items}
                     keyExtractor={cartItem => cartItem.id}

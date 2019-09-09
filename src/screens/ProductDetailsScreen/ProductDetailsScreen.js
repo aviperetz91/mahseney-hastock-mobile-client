@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './style';
 import Colors from '../../constants/Colors';
+import Card from '../../components/Card';
 import * as cartActions from '../../store/actions/cartActions';
 import * as productsActions from '../../store/actions/productsActions';
 
@@ -37,9 +38,9 @@ class ProductDeatailsScreen extends Component {
         const copiedProduct = {...selectedProduct}
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.imageContainer}>
+                <Card style={styles.imageContainer}>
                     <Image style={styles.image} source={{uri: copiedProduct.imageUrl}}/>
-                </View>
+                </Card>
                 <Text style={styles.price}> <Icon name="shekel-sign" color="#888" size={20}/> {copiedProduct.price}</Text>
                 <Text style={styles.description}>{copiedProduct.description}</Text>
                 <View style={styles.buttonsContainer}>

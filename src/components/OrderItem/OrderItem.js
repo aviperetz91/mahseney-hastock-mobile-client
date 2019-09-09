@@ -5,32 +5,13 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './style';
 import Colors from '../../constants/Colors';
 import CartItem from '../CartItem';
+import Card from '../Card';
 
 class OrderItem extends Component {
 
     state = {
         showDetails: false
     }
-
-    // displayDetails = () => {
-    //     if (this.state.showDetails){
-    //         return (
-    //             <View style={styles.itemContainer}>
-    //                 {this.props.items.map(cartItem => (
-    //                     <CartItem 
-    //                         key={cartItem.id}
-    //                         quantity={cartItem.quantity}
-    //                         amount={cartItem.sum}
-    //                         title={cartItem.title}
-    //                         image={cartItem.image}
-    //                     />
-    //                 )
-    //                 )}
-    //             </View>
-    //         )
-    //     }
-    //     else return;
-    // }
 
     render() {
         let display;
@@ -49,7 +30,7 @@ class OrderItem extends Component {
                 </View>
         }
         return (
-            <View style={styles.orderItem}> 
+            <Card style={styles.orderItem}> 
                 <View style={styles.summary}>
                     <Text style={styles.totalAmount}>
                         <Icon name="shekel-sign" size={14}/> {this.props.amount.toFixed(2)}
@@ -66,7 +47,7 @@ class OrderItem extends Component {
                         }}/>
                     {display}
                 </View>
-            </View>
+            </Card>
         )
     }
    

@@ -6,14 +6,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.light
     },
     product: {
-        shadowColor: "black",
-        shadowOpacity: 0.26,
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 10,
-        elevation: 4,
-        borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 10,
         height: 300,
         marginVertical: 15,
         marginHorizontal: 20

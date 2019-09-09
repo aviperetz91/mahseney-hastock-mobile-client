@@ -105,6 +105,13 @@ export const IMAGES = [
   "https://mahseney-hastock-92765.herokuapp.com/resources/img/i7.jpg",
 ]
 
+export const BRANCHES = [
+  {title: "מדרחוב קריית הממשלה", address: "יצחק בן צבי 9, באר שבע"},
+  {title: "אופקים", address: "רחוב הרצל 3, אופקים"},
+  {title: "מרכז גילת", address: "דוד המלך 2, באר שבע"},
+  {title: "9.90 - מבית מחסני הסטוק", address: "יצחק בן צבי 11, באר שבע"},
+]
+
 // export const IMAGES = [
 //   "https://i.ytimg.com/vi/KCpWzgXALLg/maxresdefault.jpg",
 //   "https://res.cloudinary.com/exite/image/upload/f_auto/exitetogo/www.secal.co.il/gallery/sitepics/3AC57C00-4439-728A-409C-5E1411691B40.jpg",

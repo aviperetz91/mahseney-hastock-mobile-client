@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Image, TouchableHighlight } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './style';
-import { IMAGES } from '../../data/temp-data';
 import Colors from '../../constants/Colors';
+import BranchItem from '../BranchItem';
 
 class MyCarousel extends Component {
 
@@ -16,7 +17,7 @@ class MyCarousel extends Component {
         const { activeSlide } = this.state;
         return (
             <Pagination
-                dotsLength={IMAGES.length}
+                dotsLength={this.props.data.length}
                 activeDotIndex={activeSlide}
                 dotStyle={styles.dots}
                 inactiveDotStyle={styles.inactiveDots}
@@ -29,50 +30,49 @@ class MyCarousel extends Component {
     render () {
         return (
             <View style={styles.container}>
-                {/* <View>
+                <View>
                     <TouchableHighlight
-                        onPress={() => {this.carousel.snapToItem(this.state.activeIndex-1)}}>
+                        onPress={() => {this.carousel.snapToItem(this.state.activeSlide-1)}}>
                         <Icon 
                             name="chevron-right" 
-                            size={40} 
+                            size={30} 
                             color={Colors.primary}
-                            onPress={() => {this.carousel.snapToItem(this.state.activeIndex-1)}}
+                            onPress={() => {this.carousel.snapToItem(this.state.activeSlide-1)}}
                         />
                     </TouchableHighlight>
-                </View> */}
+                </View>
             
                 <View style={styles.carousel}>
                     <Carousel
                         ref={(c) => { this.carousel = c; }}
-                        data={IMAGES}
-                        sliderWidth={500}
+                        data={this.props.data}
+                        sliderWidth={300}
                         itemWidth={300}
                         onSnapToItem = { index => this.setState({activeSlide:index}) }
-                        renderItem={(image) => {
+                        renderItem={(branch) => {
                             return (
-                                <Image 
-                                    source={{uri: image.item}}
-                                    style={styles.image}
-                                />               
+                                <BranchItem 
+                                    title={branch.item.title}
+                                    address={branch.item.address}
+                                />         
                             )
                         }}
                     /> 
                     { this.pagination }
                 </View>
 
-                {/* <View>
+                <View>
                     <TouchableHighlight
-                        onPress={() => {this.carousel.snapToItem(this.state.activeIndex+1)}}>
+                        onPress={() => {this.carousel.snapToItem(this.state.activeSlide+1)}}>
                         <Icon 
                             name="chevron-left" 
-                            size={40} 
+                            size={30} 
                             color={Colors.primary}
-                            onPress={() => {this.carousel.snapToItem(this.state.activeIndex+1)}}
+                            onPress={() => {this.carousel.snapToItem(this.state.activeSlide+1)}}
                         />
                     </TouchableHighlight>
-                </View> */}
-
-        </View>
+                </View>
+            </View>
         );
     }
 }

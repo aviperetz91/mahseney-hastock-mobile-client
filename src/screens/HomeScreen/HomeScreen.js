@@ -5,19 +5,12 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/HeaderButton';
 import styles from './style';
 import LogoTitle from '../../components/LogoTitle';
-import MyCarousel from '../../components/MyCarousel';
-
 
 class HomeScreen extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            // headerTitle: <LogoTitle />,
-            headerTitle: "מחסני הסטוק",
-            headerTitleStyle: {
-                fontSize: 32,
-                fontWeight: "bold",
-            },
+            headerTitle: <LogoTitle />,
             headerLeft: 
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
                     <Item 
@@ -41,9 +34,8 @@ class HomeScreen extends Component {
         return (
             <ScrollView contentContainerStyle={styles.screen}>
                 <View style={styles.slider}>
-                    {/* <MyCarousel layout={'default'}/> */}
+            
                 </View>
-                
             </ScrollView>  
         )
     }

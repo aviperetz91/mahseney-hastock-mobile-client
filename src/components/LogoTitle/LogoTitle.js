@@ -4,8 +4,8 @@ import { Image } from 'react-native';
 const LogoTitle = () => {
     return (
         <Image 
-            source={require("../../assets/images/LogoTitle.jpg")} 
-            style={{width: 260, height: 35}}
+            source={require("../../assets/images/logo.jpg")} 
+            style={{width: 280, height: 35}}
         />
     )
 }

@@ -4,11 +4,12 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './style';
 import Colors from '../../constants/Colors';
+import Card from '../Card';
 
 const ProductItem = props => {
     return (
         <View style={styles.screen}>
-            <View style={styles.product}>
+            <Card style={styles.product}>
                 <View style={styles.imageContainer}>
                     <Image style={styles.image} source={{uri: props.image}} />
                 </View>
@@ -26,7 +27,7 @@ const ProductItem = props => {
                         </View>
                     </View>
                 </View>
-            </View>
+            </Card>
         </View>
     )
 }

@@ -11,6 +11,7 @@ import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import CartScreen from '../screens/CartScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 import EditProductScreen from '../screens/EditProductScreen';
+import BranchesScreen from '../screens/BranchesScreen';
 
 import Colors from '../constants/Colors';
 
@@ -83,12 +84,27 @@ const OrdersNavigator = createStackNavigator(
     }    
 )
 
+const BranchesNavigator = createStackNavigator(
+    {
+        BranchesScreen: BranchesScreen,
+    },
+    {
+        navigationOptions: {
+            drawerIcon: drawerConfig => (
+                <Icon name="store" size={20} color={drawerConfig.tintColor} />
+            ) 
+        },
+        defaultNavigationOptions: navOptions
+    }    
+)
+
 const RootNavigator = createDrawerNavigator(
     {
         ראשי: MainNavigator,
         קטגוריות: CategoriesNavigatopr,
         עגלה: CartNavigator,
         הזמנות: OrdersNavigator,
+        סניפים: BranchesNavigator,
     },
     {
         contentOptions: {
