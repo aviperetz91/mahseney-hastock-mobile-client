@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
+import styles from './style';
+import * as cartActions from '../../store/actions/cartActions';
 import HeaderButton from '../../components/HeaderButton';
 import ProductItem from '../../components/ProductItem';
-import * as cartActions from '../../store/actions/cartActions';
+import SearchBar from '../../components/SearchBar';
+
 
 class ProductsScreen extends Component {
 
@@ -17,34 +20,81 @@ class ProductsScreen extends Component {
                     <Item 
                         title="Search"
                         iconName="search"
-                        onPress={() => {}}
+                        onPress={navigation.getParam("toggle")}
                     />
                 </HeaderButtons>,
         }
     }
 
+    state = {
+        searchControl: false,
+        productsByCategory: this.props.products.filter(
+            product => product.category === this.props.navigation.getParam("categoryTitle")
+        ),
+        productsBySearch: this.props.products.filter(
+            product => product.category === this.props.navigation.getParam("categoryTitle")
+        )
+    }
+
+    componentDidMount = () => {
+        this.props.navigation.setParams({toggle: this.toggleSearchControl})
+    }
+
+    toggleSearchControl = () => {
+        toggle = !this.state.searchControl;
+        this.setState({searchControl: toggle})
+    }
+
+    displaySearchBar = () => {
+        if (this.state.searchControl) {
+            return (
+                <SearchBar
+                    placeholder="הזן מוצר לחיפוש"
+                    search={this.searchHandler}/>
+            )
+        }
+        return;
+    }
+
+    searchHandler = userInput => {
+        if (userInput === "") {
+            this.setState({
+                productsBySearch: this.state.productsByCategory
+            })
+        }
+        else {
+            const searchRes = this.state.productsByCategory.filter(product => {
+                return product.title.includes(userInput)
+            })
+            this.setState({
+                productsBySearch: searchRes
+            })
+        }
+    }
+
     render() {
-        const category = this.props.navigation.getParam("categoryTitle");
-        const products = this.props.products.filter(prod => prod.category === category )
         return (
-            <FlatList 
-                data={products}
-                keyExtractor={product => product.id}
-                renderItem={product => {
-                    return (
-                        <ProductItem 
-                            image={product.item.imageUrl}
-                            title={product.item.title}
-                            price={product.item.price}
-                            onViewDetails={() => this.props.navigation.navigate("ProductDetailsScreen", {
-                                id: product.item.id,
-                                title: product.item.title
-                            })}
-                            onAddToCart={() => this.props.onAddToCart(product.item)}
-                        />
-                    )
-                }}
-            />
+            <ScrollView contentContainerStyle={styles.screen}>
+                {this.displaySearchBar()}
+                <FlatList 
+                    data={this.state.productsBySearch}
+                    keyExtractor={product => product.id}
+                    renderItem={product => {
+                        return (
+                            <ProductItem 
+                                image={product.item.imageUrl}
+                                title={product.item.title}
+                                price={product.item.price}
+                                onViewDetails={() => this.props.navigation.navigate("ProductDetailsScreen", {
+                                    id: product.item.id,
+                                    title: product.item.title
+                                })}
+                                onAddToCart={() => this.props.onAddToCart(product.item)}
+                            />
+                        )
+                    }}
+                />
+            </ScrollView>
         )
     }
 }

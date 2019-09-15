@@ -46,8 +46,7 @@ class EditProductScreen extends Component {
                 description: this.state.description 
             })
             Alert.alert("מוצר חדש", "הוספת את המוצר בהצלחה", [{text: "המשך"}])
-        }
-       
+        }  
     }
 
     render() {

@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
     },
     label: {
         alignSelf: "center",
-        fontSize: 18
+        fontSize: 16,
     },
     input: {
         paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingVertical: 8,
         borderWidth: 1,
         borderColor: "#ccc",
         borderRadius: 5

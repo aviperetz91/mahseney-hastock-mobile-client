@@ -2,9 +2,6 @@ import { StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
-    screen: {
-        backgroundColor: Colors.light
-    },
     product: {
         height: 300,
         marginVertical: 15,
