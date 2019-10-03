@@ -20,12 +20,27 @@ class EditProductScreen extends Component {
     state = {
         category: "",
         title: this.editProduct ? this.editProduct.title : "",
+        titleIsValid: this.editProduct ? true : false,
         imageUrl: this.editProduct ? this.editProduct.imageUrl : "",
+        imageIsValid: this.editProduct ? true : false,
         price: this.editProduct ? this.editProduct.price.toString() : "",
+        priceIsValid: this.editProduct ? true : false,
         description: this.editProduct ? this.editProduct.description : ""
     }
 
     submitHandler = () => {
+        if(!this.state.titleIsValid) {
+            Alert.alert("שגיאה", "אנא הזן שם מוצר", [{text: "בסדר, הבנתי."}])
+            return;
+        }
+        if(!this.state.imageIsValid) {
+            Alert.alert("שגיאה", "אנא הזן תמונה", [{text: "בסדר, הבנתי."}])
+            return;
+        }
+        if(!this.state.priceIsValid) {
+            Alert.alert("שגיאה", "אנא הזן מחיר", [{text: "בסדר, הבנתי."}])
+            return;
+        }
         if(this.editProduct) {
             this.props.onUpdateProduct({
                 category: this.editProduct.category,
@@ -47,6 +62,36 @@ class EditProductScreen extends Component {
             })
             Alert.alert("מוצר חדש", "הוספת את המוצר בהצלחה", [{text: "המשך"}])
         }  
+    }
+
+    titleChangeHandler = input => {
+        if(input.length === 0) {
+            this.setState({titleIsValid: false})
+        }
+        else {
+            this.setState({titleIsValid: true})
+        }
+        this.setState({title: input});
+    }
+
+    imageChangeHandler = input => {
+        if(input.length === 0) {
+            this.setState({imageIsValid: false})
+        }
+        else {
+            this.setState({imageIsValid: true})
+        }
+        this.setState({imageUrl: input});
+    }
+
+    priceChangeHandler = input => {
+        if(input.length === 0) {
+            this.setState({priceIsValid: false})
+        }
+        else {
+            this.setState({priceIsValid: true})
+        }
+        this.setState({price: input});
     }
 
     render() {
@@ -77,9 +122,9 @@ class EditProductScreen extends Component {
                     <View style={styles.formControl}>
                         <TextInput 
                             style={styles.input}
-                            placeholder="שם"
+                            placeholder="שם מוצר"
                             value={this.state.title}
-                            onChangeText={ input => this.setState({title: input})}
+                            onChangeText={ input => this.titleChangeHandler(input)}
                         />
                     </View>
                     <View style={styles.formControl}>
@@ -87,7 +132,8 @@ class EditProductScreen extends Component {
                             style={styles.input}
                             placeholder="קישור תמונה"
                             value={this.state.imageUrl}
-                            onChangeText={ input => this.setState({imageUrl: input})}
+                            onChangeText={ input => this.imageChangeHandler(input)}
+                            keyboardType="url"
                         />
                     </View>
                     <View style={styles.formControl}>
@@ -95,7 +141,8 @@ class EditProductScreen extends Component {
                             style={styles.input}
                             placeholder= "מחיר"
                             value={this.state.price}
-                            onChangeText={ input => this.setState({price: input})}
+                            onChangeText={ input => this.priceChangeHandler(input)}
+                            // keyboardType="decimal-pad"
                         />
                     </View>
                     <View style={styles.formControl}>

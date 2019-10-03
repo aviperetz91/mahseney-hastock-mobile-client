@@ -42,7 +42,7 @@ const MainNavigator = createStackNavigator(
     }
 )
 
-const CategoriesNavigatopr = createStackNavigator(
+const CategoriesNavigator = createStackNavigator(
     {
         CategoriesScreen: CategoriesScreen
     },
@@ -101,7 +101,7 @@ const BranchesNavigator = createStackNavigator(
 const RootNavigator = createDrawerNavigator(
     {
         ראשי: MainNavigator,
-        קטגוריות: CategoriesNavigatopr,
+        קטגוריות: CategoriesNavigator,
         עגלה: CartNavigator,
         הזמנות: OrdersNavigator,
         סניפים: BranchesNavigator,
