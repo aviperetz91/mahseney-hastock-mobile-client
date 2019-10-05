@@ -43,7 +43,7 @@ class ProductDeatailsScreen extends Component {
                 </Card>
                 <Text style={styles.price}> <Icon name="shekel-sign" color="#888" size={20}/> {copiedProduct.price}</Text>
                 <Text style={styles.description}>
-                    {copiedProduct.description.length !== 0 ? copiedProduct.description : "אין תיאור למוצר זה" }
+                    {copiedProduct.description}
                 </Text>
                 <View style={styles.buttonsContainer}>
                     <View style={styles.button}>

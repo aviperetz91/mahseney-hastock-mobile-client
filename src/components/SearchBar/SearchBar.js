@@ -21,7 +21,10 @@ class SearchBar extends Component{
                 ></TextInput>
                 <Button
                     style={styles.button}
-                    press={() => this.props.search(this.state.userInput)}
+                    press={() => {
+                        this.setState({userInput: ""});
+                        this.props.search(this.state.userInput)}
+                    }
                 >
                     חפש
                 </Button>

@@ -19,6 +19,7 @@ class EditProductScreen extends Component {
 
     state = {
         category: "",
+        categoryIsValid: this.editProduct ? true : false,
         title: this.editProduct ? this.editProduct.title : "",
         titleIsValid: this.editProduct ? true : false,
         imageUrl: this.editProduct ? this.editProduct.imageUrl : "",
@@ -29,6 +30,10 @@ class EditProductScreen extends Component {
     }
 
     submitHandler = () => {
+        if(!this.state.categoryIsValid){
+            Alert.alert("שגיאה", "אנא בחר קטגוריה", [{text: "בסדר, הבנתי."}])
+            return;
+        }
         if(!this.state.titleIsValid) {
             Alert.alert("שגיאה", "אנא הזן שם מוצר", [{text: "בסדר, הבנתי."}])
             return;
@@ -64,32 +69,43 @@ class EditProductScreen extends Component {
         }  
     }
 
-    titleChangeHandler = input => {
-        if(input.length === 0) {
-            this.setState({titleIsValid: false})
+    categoryChangeHandler = itemValue => {
+        console.log(itemValue);
+        if(itemValue === "בחר") {
+            this.setState({categoryIsValid: false});
         }
         else {
-            this.setState({titleIsValid: true})
+            this.setState({categoryIsValid: true});
+        }
+        this.setState({category: itemValue});
+    }
+
+    titleChangeHandler = input => {
+        if(input.length === 0) {
+            this.setState({titleIsValid: false});
+        }
+        else {
+            this.setState({titleIsValid: true});
         }
         this.setState({title: input});
     }
 
     imageChangeHandler = input => {
         if(input.length === 0) {
-            this.setState({imageIsValid: false})
+            this.setState({imageIsValid: false});
         }
         else {
-            this.setState({imageIsValid: true})
+            this.setState({imageIsValid: true});
         }
         this.setState({imageUrl: input});
     }
 
     priceChangeHandler = input => {
         if(input.length === 0) {
-            this.setState({priceIsValid: false})
+            this.setState({priceIsValid: false});
         }
         else {
-            this.setState({priceIsValid: true})
+            this.setState({priceIsValid: true});
         }
         this.setState({price: input});
     }
@@ -104,9 +120,10 @@ class EditProductScreen extends Component {
                         <Picker
                             selectedValue={this.state.category}
                             style={{height: 50, width: 300}}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.setState({category: itemValue})
+                            onValueChange={(itemValue, itemIndex) => 
+                                this.categoryChangeHandler(itemValue)
                             }>
+                            <Picker.Item label="בחר" value="בחר" />
                             <Picker.Item label="כלי פלסטיק" value="כלי פלסטיק" />
                             <Picker.Item label="חד פעמי" value="חד פעמי" />
                             <Picker.Item label="מטבח ואפייה" value="מטבח ואפייה" />

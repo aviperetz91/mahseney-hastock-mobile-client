@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { FlatList, ScrollView } from 'react-native';
+import { View, Text, FlatList, ScrollView, ActivityIndicator, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import styles from './style';
+import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/cartActions';
+import * as productsActions from '../../store/actions/productsActions';
 import HeaderButton from '../../components/HeaderButton';
 import ProductItem from '../../components/ProductItem';
 import SearchBar from '../../components/SearchBar';
@@ -28,20 +30,16 @@ class ProductsScreen extends Component {
 
     state = {
         searchControl: false,
-        productsByCategory: this.props.products.filter(
-            product => product.category === this.props.navigation.getParam("categoryTitle")
-        ),
-        productsBySearch: this.props.products.filter(
-            product => product.category === this.props.navigation.getParam("categoryTitle")
-        )
+        input: "",
     }
 
     componentDidMount = () => {
+        this.props.onSetProducts();
         this.props.navigation.setParams({toggle: this.toggleSearchControl})
     }
 
     toggleSearchControl = () => {
-        toggle = !this.state.searchControl;
+        const toggle = !this.state.searchControl;
         this.setState({searchControl: toggle})
     }
 
@@ -57,43 +55,69 @@ class ProductsScreen extends Component {
     }
 
     searchHandler = userInput => {
-        if (userInput === "") {
-            this.setState({
-                productsBySearch: this.state.productsByCategory
-            })
-        }
-        else {
-            const searchRes = this.state.productsByCategory.filter(product => {
-                return product.title.includes(userInput)
-            })
-            this.setState({
-                productsBySearch: searchRes
-            })
-        }
+        this.setState({input: userInput})
     }
 
+
     render() {
+        const productsByCategory = this.props.products.filter(product => 
+            product.category === this.props.navigation.getParam("categoryTitle")
+        );
+
+        const productsBySearch = productsByCategory.filter(product => 
+            product.title.includes(this.state.input)
+        )
+
+        if(this.props.isLoading) {
+            return (
+                <View style={styles.centered}>
+                    <ActivityIndicator size="large" color={Colors.primary} />
+                </View>
+            )
+        }
+
+        if(!this.props.isLoading && productsByCategory.length === 0) {
+            return (
+                <View style={styles.centered}>
+                    <Text>לא נמצאו מוצרים</Text>
+                </View>
+            )
+        }
+
         return (
             <ScrollView contentContainerStyle={styles.screen}>
                 {this.displaySearchBar()}
-                <FlatList 
-                    data={this.state.productsBySearch}
-                    keyExtractor={product => product.id}
-                    renderItem={product => {
-                        return (
-                            <ProductItem 
-                                image={product.item.imageUrl}
-                                title={product.item.title}
-                                price={product.item.price}
-                                onViewDetails={() => this.props.navigation.navigate("ProductDetailsScreen", {
-                                    id: product.item.id,
-                                    title: product.item.title
-                                })}
-                                onAddToCart={() => this.props.onAddToCart(product.item)}
+                {productsBySearch.length === 0 ?
+                    <View style={styles.message}>
+                        <Text>לא נמצאו מוצרים התואמים את מילת החיפוש:</Text>
+                        <Text>"{this.state.input}"</Text>
+                        <View style={styles.button}>
+                            <Button 
+                                title="חזור לשאר המוצרים"
+                                color={Colors.primary}
+                                onPress={() => this.searchHandler("")}    
                             />
-                        )
-                    }}
-                />
+                        </View>
+                    </View>
+                    :
+                    <FlatList 
+                        data={productsBySearch}
+                        keyExtractor={product => product.id}
+                        renderItem={product => {
+                            return (
+                                <ProductItem 
+                                    image={product.item.imageUrl}
+                                    title={product.item.title}
+                                    price={product.item.price}
+                                    onViewDetails={() => this.props.navigation.navigate("ProductDetailsScreen", {
+                                        id: product.item.id,
+                                        title: product.item.title
+                                    })}
+                                    onAddToCart={() => this.props.onAddToCart(product.item)}
+                                /> 
+                            )
+                        }}
+                    />}
             </ScrollView>
         )
     }
@@ -101,13 +125,15 @@ class ProductsScreen extends Component {
 
 mapStateToProps = state => {
     return {
-        products: state.products.products
+        products: state.products.products,
+        isLoading: state.products.isLoading
     }
 }
 
 mapDispatchToProps = dispatch => {
     return {
-        onAddToCart: product => dispatch(cartActions.addToCart(product))  // dispatch({type: ACTION_NAME, payload})
+        onAddToCart: product => dispatch(cartActions.addToCart(product)),  // dispatch({type: ACTION_NAME, payload})
+        onSetProducts: () => dispatch(productsActions.fetchProducts())
     }
 }
 
