@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, ActivityIndicator, Button } from 'react-native';
+import { View, Text, FlatList, ScrollView, ActivityIndicator, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
@@ -34,8 +34,10 @@ class ProductsScreen extends Component {
     }
 
     componentDidMount = () => {
-        this.props.onSetProducts();
-        this.props.navigation.setParams({toggle: this.toggleSearchControl})
+        this.props.onLoading();
+        this.props.loadProducts();
+        this.props.navigation.setParams({toggle: this.toggleSearchControl});
+
     }
 
     toggleSearchControl = () => {
@@ -89,7 +91,7 @@ class ProductsScreen extends Component {
                 {this.displaySearchBar()}
                 {productsBySearch.length === 0 ?
                     <View style={styles.message}>
-                        <Text>לא נמצאו מוצרים התואמים את מילת החיפוש:</Text>
+                        <Text>לא נמצאו מוצרים התואמים את מילת החיפוש: </Text>
                         <Text>"{this.state.input}"</Text>
                         <View style={styles.button}>
                             <Button 
@@ -113,7 +115,10 @@ class ProductsScreen extends Component {
                                         id: product.item.id,
                                         title: product.item.title
                                     })}
-                                    onAddToCart={() => this.props.onAddToCart(product.item)}
+                                    onAddToCart={() => {
+                                        this.props.onAddToCart(product.item)
+                                        Alert.alert("חדש בעגלה", "הוספת את המוצר לעגלה.", [{text: "המשך לקנות"}]);
+                                    }}
                                 /> 
                             )
                         }}
@@ -133,7 +138,8 @@ mapStateToProps = state => {
 mapDispatchToProps = dispatch => {
     return {
         onAddToCart: product => dispatch(cartActions.addToCart(product)),  // dispatch({type: ACTION_NAME, payload})
-        onSetProducts: () => dispatch(productsActions.fetchProducts())
+        loadProducts: () => dispatch(productsActions.fetchProducts()),
+        onLoading: () => dispatch(productsActions.isLoadingTrue())
     }
 }
 

@@ -1,14 +1,19 @@
 // import { PRODUCTS } from '../../data/temp-data';
-import { SET_PRODUCTS, CREATE_PRODUCT, UPDATE_PRODUCT, DELETE_PRODUCT } from '../actions/productsActions';
+import { IS_LOADING, SET_PRODUCTS, CREATE_PRODUCT, UPDATE_PRODUCT, DELETE_PRODUCT } from '../actions/productsActions';
 import Product from '../../models/product';
 
 const initialState = {
     products: [],
-    isLoading: true
+    isLoading: false
 } 
 
 const productsReducer = (state=initialState, action) => {
     switch(action.type) {
+        case IS_LOADING: 
+            return {
+                ...state,
+                isLoading: true
+            }
         case SET_PRODUCTS: 
             return {
                 ...state,

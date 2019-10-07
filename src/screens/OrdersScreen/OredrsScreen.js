@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
+import styles from './style';
+import Colors from '../../constants/Colors';
+import * as ordersActions from '../../store/actions/ordersActions'
 import HeaderButton from '../../components/HeaderButton';
 import OrderItem from '../../components/OrderItem/OrderItem';
 
@@ -23,7 +26,21 @@ class OrdersScreen extends Component {
         }
     }
 
+    componentDidMount = () => {
+        this.props.onLoading();
+        this.props.loadOrders();
+    }
+
     render() {
+
+        if(this.props.isLoading) {
+            return (
+                <View style={styles.centered}>
+                    <ActivityIndicator size="large" color={Colors.primary} />
+                </View>
+            )
+        }
+
         return (
             <FlatList 
                 data={this.props.orders}
@@ -44,8 +61,16 @@ class OrdersScreen extends Component {
 
 const mapStateToProps = state => {
     return {
-        orders: state.orders.orders
+        orders: state.orders.orders,
+        isLoading: state.orders.isLoading
     }
 }
 
-export default connect(mapStateToProps, null)(OrdersScreen);
+const mapDispatchToProps = dispatch => {
+    return {
+        loadOrders: () => dispatch(ordersActions.fetchOrders()),
+        onLoading: () => dispatch(ordersActions.isLoadingTrue())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersScreen);

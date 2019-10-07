@@ -55,7 +55,7 @@ class EditProductScreen extends Component {
                 price: +this.state.price,
                 description: this.state.description
             })
-            Alert.alert("עדכון מוצר", "עדכנת את המוצר בהצלחה", [{text: "המשך"}])
+            Alert.alert("עדכון מוצר", "עדכנת את המוצר בהצלחה.", [{text: "המשך"}])
         }
         else {
             this.props.onCreateProduct({
@@ -65,7 +65,7 @@ class EditProductScreen extends Component {
                 price: +this.state.price,
                 description: this.state.description 
             })
-            Alert.alert("מוצר חדש", "הוספת את המוצר בהצלחה", [{text: "המשך"}])
+            Alert.alert("מוצר חדש", "הוספת את המוצר בהצלחה.", [{text: "המשך"}])
         }  
     }
 

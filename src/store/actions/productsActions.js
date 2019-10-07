@@ -1,11 +1,16 @@
 import axios from 'axios';
 import Product from '../../models/product';
 
+export const IS_LOADING = "IS_LOADING";
 export const SET_PRODUCTS = "SET_PRODUCTS";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 
+
+export const isLoadingTrue = () => {
+    return { type: IS_LOADING }
+}
 
 export const fetchProducts = () => {
     return dispatch => {
@@ -47,9 +52,21 @@ export const createProduct = (product) => {
 }
 
 export const updateProduct = (product) => {
-    return { type: UPDATE_PRODUCT, product: product }
+    // return { type: UPDATE_PRODUCT, product: product }
+    return dispatch => {
+        axios.patch(`https://mahseney-hastock.firebaseio.com/products/${product.id}.json`, product)
+            .then(response => {
+                dispatch({ type: UPDATE_PRODUCT, product });
+            });  
+    }
 }
 
 export const deleteProduct = productId => {
-    return { type: DELETE_PRODUCT, pid: productId }
+    // return { type: DELETE_PRODUCT, pid: productId }
+    return dispatch => {
+        axios.delete(`https://mahseney-hastock.firebaseio.com/products/${productId}.json`)
+            .then(response => {
+                dispatch({ type: DELETE_PRODUCT, pid: productId });
+            });  
+    }
 }

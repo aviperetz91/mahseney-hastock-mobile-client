@@ -59,7 +59,10 @@ class ProductDeatailsScreen extends Component {
                         <Button 
                             color={Colors.primary} 
                             title="הוסף לעגלה" 
-                            onPress={() => this.props.onAddToCart(copiedProduct)}/>
+                            onPress={() => {
+                                this.props.onAddToCart(copiedProduct);
+                                Alert.alert("חדש בעגלה", "הוספת את המוצר לעגלה.", [{text: "המשך לקנות"}]);
+                            }}/>
                     </View>
                     <View style={styles.button}>
                         <Button 
