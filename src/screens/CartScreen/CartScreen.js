@@ -28,16 +28,31 @@ class CartScreen extends Component {
         }
     }
 
+    componentDidMount = () => {
+        this.props.onLoading();
+        this.props.loadItems();
+    }
+
     orderButtonPressHandler = () => {
         this.props.addOrderLoading();
         this.props.onAddOrder(this.props.items, this.props.totalAmount);
+        this.props.resetCart();
         Alert.alert("הזמנה חדשה", "ההזמנה בוצעה בהצלחה. על מנת לצפות בפרטי ההזמנה עבור ללשונית 'הזמנות'.", [{text: "הבנתי"}]);
     }
 
     render() {
+        
         let total = this.props.totalAmount;
         if(total < 0) {
             total = 0.00
+        }
+
+        if(this.props.isLoading) {
+            return (
+                <View style={styles.centered}>
+                    <ActivityIndicator size="large" color={Colors.primary} />
+                </View>
+            )
         }
 
         return(
@@ -81,6 +96,7 @@ class CartScreen extends Component {
 
 mapStateToProps = state => {
     return {
+        isLoading: state.cart.isLoading,
         items: state.cart.items,
         totalAmount: state.cart.totalAmount,
         addedOrder: state.orders.addedOrder
@@ -89,9 +105,12 @@ mapStateToProps = state => {
 
 mapDispatchToProps = dispatch => {
     return {
+        loadItems: () => dispatch(cartActions.fetchItems()),
+        onLoading: () => dispatch(cartActions.isLoadingTrue()),
         onRemoveFromCart: item => dispatch(cartActions.removeFromCart(item)), // dispatch({type: ACTION_NAME, payload})
         onAddOrder: (items, totalAmount) => dispatch(ordersActions.addOrder(items, totalAmount)),
-        addOrderLoading: () => dispatch(ordersActions.addOrderLoading())
+        addOrderLoading: () => dispatch(ordersActions.addOrderLoading()),
+        resetCart: () => dispatch(cartActions.resetCart())
     }
 }
 

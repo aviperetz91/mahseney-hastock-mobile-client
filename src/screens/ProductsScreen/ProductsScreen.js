@@ -36,6 +36,7 @@ class ProductsScreen extends Component {
     componentDidMount = () => {
         this.props.onLoading();
         this.props.loadProducts();
+        this.props.loadCartItems();
         this.props.navigation.setParams({toggle: this.toggleSearchControl});
 
     }
@@ -137,9 +138,11 @@ mapStateToProps = state => {
 
 mapDispatchToProps = dispatch => {
     return {
-        onAddToCart: product => dispatch(cartActions.addToCart(product)),  // dispatch({type: ACTION_NAME, payload})
-        loadProducts: () => dispatch(productsActions.fetchProducts()),
-        onLoading: () => dispatch(productsActions.isLoadingTrue())
+        loadProducts: () => dispatch(productsActions.fetchProducts()),  // dispatch({type: ACTION_NAME, payload})
+        onLoading: () => dispatch(productsActions.isLoadingTrue()),
+        loadCartItems: () => dispatch(cartActions.fetchItems()),
+        onAddToCart: product => dispatch(cartActions.addToCart(product)),  
+        
     }
 }
 

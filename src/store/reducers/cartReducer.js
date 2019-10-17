@@ -1,15 +1,28 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cartActions';
+import { LOADING_TRUE, SET_ITEMS, ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cartActions';
 import { ADD_ORDER } from '../actions/ordersActions';
-import { DELETE_PRODUCT } from '../actions/productsActions'
+// import { DELETE_PRODUCT } from '../actions/productsActions';
 import CartItem from '../../models/cart-item';
 
 const initialState = {
     items: [],
-    totalAmount: 0.00
+    totalAmount: 0.00,
+    isLoading: false
 }
 
 const cartReducer = (state=initialState, action) => {
     switch(action.type) {
+        case LOADING_TRUE: 
+            return{
+                ...state,
+                isLoading: true
+            }
+        case SET_ITEMS:
+            return {
+                ...state,
+                items: action.items,
+                totalAmount: action.totalAmount,
+                isLoading: false
+            }
         case ADD_TO_CART:
             if(state.items.some(cur => cur.id === action.product.id)) {
                 // already have the item in the cart
@@ -67,17 +80,16 @@ const cartReducer = (state=initialState, action) => {
             }
         case ADD_ORDER:
             return initialState;
-        case DELETE_PRODUCT:
-            const deleteIndex = state.items.findIndex(item => item.id === action.pid);
-            if(state.items[deleteIndex]) {
-                return {
-                    ...state,
-                    items: state.items.filter(item => item.id !== action.pid),
-                    totalAmount: state.totalAmount - state.items[deleteIndex].sum
-                }
-            }
-            else return state;
-            
+        // case DELETE_PRODUCT:
+        //     const deleteIndex = state.items.findIndex(item => item.id === action.pid);
+        //     if(state.items[deleteIndex]) {
+        //         return {
+        //             ...state,
+        //             items: state.items.filter(item => item.id !== action.pid),
+        //             totalAmount: state.totalAmount - state.items[deleteIndex].sum
+        //         }
+        //     }
+        //     else return state; 
         default:
             return state;
     }  

@@ -5,6 +5,11 @@ const styles = StyleSheet.create({
     screen: {
         margin: 20,
     },
+    centered: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
     summary: {
         flexDirection: "row",
         alignItems: "center",
@@ -19,7 +24,7 @@ const styles = StyleSheet.create({
     },
     amount: {
         color: Colors.primary
-    }
+    },
 })
 
 export default styles;
