@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -12,6 +12,7 @@ import CartScreen from '../screens/CartScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 import EditProductScreen from '../screens/EditProductScreen';
 import BranchesScreen from '../screens/BranchesScreen';
+import AuthScreen from '../screens/AuthScreen';
 
 import Colors from '../constants/Colors';
 
@@ -25,11 +26,10 @@ const navOptions = {
     }
 }
 
-const MainNavigator = createStackNavigator(
+const HomeNavigator = createStackNavigator(
     {
         HomeScreen: HomeScreen,
-        ProductsScreen: ProductsScreen,
-        ProductDetailsScreen: ProductDetailsScreen,
+        CartScreen: CartScreen,
         EditProductScreen: EditProductScreen
     },
     {
@@ -42,9 +42,12 @@ const MainNavigator = createStackNavigator(
     }
 )
 
-const CategoriesNavigator = createStackNavigator(
+const ShopNavigator = createStackNavigator(
     {
-        CategoriesScreen: CategoriesScreen
+        CategoriesScreen: CategoriesScreen,
+        ProductsScreen: ProductsScreen,
+        ProductDetailsScreen: ProductDetailsScreen,
+        CartScreen: CartScreen,
     },
     {
         navigationOptions: {
@@ -56,23 +59,10 @@ const CategoriesNavigator = createStackNavigator(
     }
 )
 
-const CartNavigator = createStackNavigator(
-    {
-        CartScreen: CartScreen,
-    },
-    {
-        navigationOptions: {
-            drawerIcon: drawerConfig => (
-                <Icon name="shopping-cart" size={23} color={drawerConfig.tintColor} />
-            ) 
-        },
-        defaultNavigationOptions: navOptions
-    }    
-)
-
 const OrdersNavigator = createStackNavigator(
     {
         OrdersScreen: OrdersScreen,
+        CartScreen: CartScreen,
     },
     {
         navigationOptions: {
@@ -87,6 +77,7 @@ const OrdersNavigator = createStackNavigator(
 const BranchesNavigator = createStackNavigator(
     {
         BranchesScreen: BranchesScreen,
+        CartScreen: CartScreen,
     },
     {
         navigationOptions: {
@@ -98,11 +89,25 @@ const BranchesNavigator = createStackNavigator(
     }    
 )
 
-const RootNavigator = createDrawerNavigator(
+const AuthNavigator = createStackNavigator(
     {
-        ראשי: MainNavigator,
-        קטגוריות: CategoriesNavigator,
-        עגלה: CartNavigator,
+        AuthScreen: AuthScreen
+    },
+    {
+        navigationOptions: {
+            drawerIcon: drawerConfig => (
+                <Icon name="user-alt" size={23} color={drawerConfig.tintColor} />
+            ) 
+        },
+        defaultNavigationOptions: navOptions
+    }
+)
+
+const MainNavigator = createDrawerNavigator(
+    {
+        ראשי: HomeNavigator,
+        התחברות: AuthNavigator,
+        קטגוריות: ShopNavigator,
         הזמנות: OrdersNavigator,
         סניפים: BranchesNavigator,
     },
@@ -113,4 +118,5 @@ const RootNavigator = createDrawerNavigator(
     }
 )
 
-export default createAppContainer(RootNavigator);
+
+export default createAppContainer(MainNavigator);

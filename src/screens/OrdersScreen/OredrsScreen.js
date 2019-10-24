@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import { FlatList, View, Text, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
@@ -16,19 +16,34 @@ class OrdersScreen extends Component {
         return {
             headerTitle: "ההזמנות שלי",
             headerLeft: 
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item 
-                    title="Menu"
-                    iconName="bars"
-                    onPress={() => navigation.toggleDrawer()}
-                />
-            </HeaderButtons>,
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Menu"
+                        iconName="bars"
+                        onPress={() => navigation.toggleDrawer()}
+                    />
+                </HeaderButtons>,
+            headerRight: 
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Cart"
+                        iconName="shopping-cart"
+                        onPress={() => navigation.navigate("CartScreen")}
+                    />,
+                </HeaderButtons>,
         }
     }
 
     componentDidMount = () => {
-        this.props.onLoading();
+        // this.props.onLoading();
         this.props.loadOrders();
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if(this.props.userId !== prevProps.userId) {
+            // this.props.onLoading();
+            this.props.loadOrders();
+        }
     }
 
     render() {
@@ -37,6 +52,16 @@ class OrdersScreen extends Component {
             return (
                 <View style={styles.centered}>
                     <ActivityIndicator size="large" color={Colors.primary} />
+                </View>
+            )
+        }
+
+        if(!this.props.userId) {
+            return (
+                <View style={styles.centered}>
+                    <Text size="large" color={Colors.primary}>
+                        התחבר למערכת על מנת לצפות ברשימת ההזמנות שלך
+                    </Text>
                 </View>
             )
         }
@@ -62,7 +87,8 @@ class OrdersScreen extends Component {
 const mapStateToProps = state => {
     return {
         orders: state.orders.orders,
-        isLoading: state.orders.isLoading
+        isLoading: state.orders.isLoading,
+        userId: state.auth.userId
     }
 }
 

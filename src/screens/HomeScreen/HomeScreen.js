@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/HeaderButton';
@@ -10,7 +10,11 @@ class HomeScreen extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <LogoTitle />,
+            // headerTitle: <LogoTitle />,
+            headerTitle: 
+                <Text style={styles.title}>
+                    מחסני הסטוק
+                </Text>,
             headerLeft: 
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
                     <Item 
@@ -20,13 +24,18 @@ class HomeScreen extends Component {
                     />
                 </HeaderButtons>,
             headerRight:
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item 
-                    title="Add"
-                    iconName="pencil-alt"
-                    onPress={() => navigation.navigate("EditProductScreen")}
-                />
-            </HeaderButtons>
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Cart"
+                        iconName="shopping-cart"
+                        onPress={() => navigation.navigate("CartScreen")}
+                    />,
+                    {/* <Item 
+                        title="Add"
+                        iconName="pencil-alt"
+                        onPress={() => navigation.navigate("EditProductScreen")}
+                    /> */}
+                </HeaderButtons>,
         }
     }
 

@@ -20,6 +20,14 @@ class BranchesScreen extends Component {
                         onPress={() => navigation.toggleDrawer()}
                     />
                 </HeaderButtons>,
+            headerRight: 
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Cart"
+                        iconName="shopping-cart"
+                        onPress={() => navigation.navigate("CartScreen")}
+                    />,
+                </HeaderButtons>,
         } 
     }
 

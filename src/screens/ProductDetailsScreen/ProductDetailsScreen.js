@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text, Image, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
+import HeaderButton from '../../components/HeaderButton';
 import styles from './style';
 import Colors from '../../constants/Colors';
 import Card from '../../components/Card';
@@ -14,6 +16,14 @@ class ProductDeatailsScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: navigation.getParam("title"),
+            headerRight: 
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Cart"
+                        iconName="shopping-cart"
+                        onPress={() => navigation.navigate("CartScreen")}
+                    />,
+                </HeaderButtons>,
         }
     }
 
@@ -46,7 +56,7 @@ class ProductDeatailsScreen extends Component {
                     {copiedProduct.description}
                 </Text>
                 <View style={styles.buttonsContainer}>
-                    <View style={styles.button}>
+                    {/* <View style={styles.button}>
                         <Button 
                             color={Colors.warning} 
                             title="ערוך" 
@@ -54,7 +64,7 @@ class ProductDeatailsScreen extends Component {
                                 id: copiedProduct.id
                             }
                         )}/>
-                    </View>
+                    </View> */}
                     <View style={styles.button}>
                         <Button 
                             color={Colors.primary} 
@@ -64,12 +74,12 @@ class ProductDeatailsScreen extends Component {
                                 Alert.alert("חדש בעגלה", "הוספת את המוצר לעגלה.", [{text: "המשך לקנות"}]);
                             }}/>
                     </View>
-                    <View style={styles.button}>
+                    {/* <View style={styles.button}>
                         <Button 
                             color={Colors.danger} 
                             title="מחק" 
                             onPress={() => this.deleteHandler(productId)}/>
-                    </View>
+                    </View> */}
                 </View>
             </ScrollView>
             

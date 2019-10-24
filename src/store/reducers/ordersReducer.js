@@ -17,8 +17,8 @@ const ordersReducer = (state = initialState, action) => {
         case SET_ORDERS: 
             return {
                 ...state,
-                orders: action.orders,
-                isLoading: false
+                orders: action.orders,   
+                // isLoading: false
             }
         case ADD_ORDER_LOADING: 
             return {

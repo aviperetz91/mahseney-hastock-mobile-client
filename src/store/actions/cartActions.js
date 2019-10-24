@@ -12,9 +12,11 @@ export const isLoadingTrue = () => {
 }
 
 export const fetchItems = () => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        const token = getState().auth.token;
+        const userId = getState().auth.userId;
         const loadedItems = [];
-        axios.get("https://mahseney-hastock.firebaseio.com/cart/u1.json")
+        axios.get(`https://mahseney-hastock.firebaseio.com/cart/${userId}.json?auth=${token}`)
             .then(response => {
                 let totalAmount = 0.00;
                 for(const key in response.data) {
@@ -40,8 +42,10 @@ export const addToCart = product => {
     let productsIds = [];
     let itemId;
     return (dispatch, getState) => {
+        const token = getState().auth.token;
+        const userId = getState().auth.userId;
         const items = getState().cart.items;
-        axios.get("https://mahseney-hastock.firebaseio.com/cart/u1.json")
+        axios.get(`https://mahseney-hastock.firebaseio.com/cart/${userId}.json?auth=${token}`)
             .then(response => {
                 for(const key in response.data) {
                     productsIds.push(response.data[key].id);
@@ -56,7 +60,7 @@ export const addToCart = product => {
                         quantity: items[itemIndex].quantity + 1, 
                         sum: items[itemIndex].sum + product.price,
                     }
-                    axios.patch(`https://mahseney-hastock.firebaseio.com/cart/u1/${itemId}.json`, updatedItem )
+                    axios.patch(`https://mahseney-hastock.firebaseio.com/cart/${userId}/${itemId}.json`, updatedItem )
                         .then(response =>  dispatch({ type: ADD_TO_CART, product }))
                 }
                 else {
@@ -68,7 +72,7 @@ export const addToCart = product => {
                         sum : product.price,
                         image: product.imageUrl
                     }
-                    axios.post(`https://mahseney-hastock.firebaseio.com/cart/u1.json`, productItem)
+                    axios.post(`https://mahseney-hastock.firebaseio.com/cart/${userId}.json`, productItem)
                         .then(response => dispatch({ type: ADD_TO_CART, product }))
                 }
             })
@@ -79,8 +83,9 @@ export const removeFromCart = item => {
     // return { type: REMOVE_FROM_CART, item: item }
     let itemId;
     return (dispatch, getState) => {
+        const userId = getState().auth.userId;
         const items = getState().cart.items;
-        axios.get("https://mahseney-hastock.firebaseio.com/cart/u1.json")
+        axios.get(`https://mahseney-hastock.firebaseio.com/cart/${userId}.json`)
             .then(response => {
                 for(const key in response.data) {
                     if(response.data[key].id === item.id) {
@@ -94,11 +99,11 @@ export const removeFromCart = item => {
                         quantity: items[itemIndex].quantity - 1, 
                         sum: items[itemIndex].sum - item.price,
                     }
-                    axios.patch(`https://mahseney-hastock.firebaseio.com/cart/u1/${itemId}.json`, updatedItem )
+                    axios.patch(`https://mahseney-hastock.firebaseio.com/cart/${userId}/${itemId}.json`, updatedItem )
                         .then(response =>  dispatch({ type: REMOVE_FROM_CART, item }))
                 }
                 else {
-                    axios.delete(`https://mahseney-hastock.firebaseio.com/cart/u1/${itemId}.json`)
+                    axios.delete(`https://mahseney-hastock.firebaseio.com/cart/${userId}/${itemId}.json`)
                         .then(response =>  dispatch({ type: REMOVE_FROM_CART, item }))
                 }
             })
@@ -106,7 +111,8 @@ export const removeFromCart = item => {
 }
 
 export const resetCart = () => {
-    return dispatch => {
-        axios.delete(`https://mahseney-hastock.firebaseio.com/cart/u1.json`);
+    return (dispatch, getState) => {
+        const userId = getState().auth.userId;
+        axios.delete(`https://mahseney-hastock.firebaseio.com/cart/${userId}.json`);
     }
 }

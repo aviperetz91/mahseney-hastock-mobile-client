@@ -5,6 +5,12 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         marginTop: 8,
     },
+    title: {
+        paddingBottom: 5,
+        fontSize: 32,
+        fontWeight: "bold",
+        color: "white"
+    },
     slider: {
         borderRadius: 20,
     }

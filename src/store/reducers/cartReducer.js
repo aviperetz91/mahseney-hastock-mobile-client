@@ -21,7 +21,7 @@ const cartReducer = (state=initialState, action) => {
                 ...state,
                 items: action.items,
                 totalAmount: action.totalAmount,
-                isLoading: false
+                // isLoading: false,
             }
         case ADD_TO_CART:
             if(state.items.some(cur => cur.id === action.product.id)) {

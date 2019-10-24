@@ -19,14 +19,14 @@ class OrderItem extends Component {
             display = 
                 <View style={styles.itemContainer}>
                     {this.props.items.map(cartItem => (
-                    <CartItem 
-                        key={cartItem.id}
-                        quantity={cartItem.quantity}
-                        amount={cartItem.sum}
-                        title={cartItem.title}
-                        image={cartItem.image}
-                    />
-                ))} 
+                        <CartItem 
+                            key={cartItem.id}
+                            quantity={cartItem.quantity}
+                            amount={cartItem.sum}
+                            title={cartItem.title}
+                            image={cartItem.image}
+                        />
+                    ))} 
                 </View>
         }
         return (

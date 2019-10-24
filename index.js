@@ -9,13 +9,15 @@ import ReduxThunk from 'redux-thunk';
 import productsReducer from './src/store/reducers/productsReducer';
 import cartReducer from './src/store/reducers/cartReducer';
 import ordersReducer from './src/store/reducers/ordersReducer';
+import authReducer from './src/store/reducers/authReducer';
 
 I18nManager.allowRTL(true)
 
 const rootReducer = combineReducers({
     products: productsReducer,
     cart: cartReducer,
-    orders: ordersReducer
+    orders: ordersReducer,
+    auth: authReducer,
 })
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

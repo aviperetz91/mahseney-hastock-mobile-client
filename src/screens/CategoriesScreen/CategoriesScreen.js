@@ -19,7 +19,15 @@ class CategoriesScreen extends Component {
                         iconName="bars"
                         onPress={() => navigation.toggleDrawer()}
                     />
-                </HeaderButtons>,
+                </HeaderButtons>, 
+            headerRight: 
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title="Cart"
+                        iconName="shopping-cart"
+                        onPress={() => navigation.navigate("CartScreen")}
+                    />,
+                </HeaderButtons>,   
         }
     }
 

@@ -12,8 +12,10 @@ export const isLoadingTrue = () => {
 }
 
 export const fetchOrders = () => {
-    return dispatch => {
-        axios.get("https://mahseney-hastock.firebaseio.com/orders/u1.json")
+    return (dispatch, getState) => {
+        const token = getState().auth.token;
+        const userId = getState().auth.userId;
+        axios.get(`https://mahseney-hastock.firebaseio.com/orders/${userId}.json?auth=${token}`)
             .then(response => {
                 const loadedOrders = [];
                 for(const key in response.data) {
@@ -40,20 +42,22 @@ export const addOrder = (items, totalAmount) => {
     //     type: ADD_ORDER, 
     //     payload: { items: items, totalAmount: totalAmount }
     // }
-    return dispatch => {
+    return (dispatch, getState) => {
+        const token = getState().auth.token;
+        const userId = getState().auth.userId;
         const date = new Date();
-        axios.post("https://mahseney-hastock.firebaseio.com/orders/u1.json", {
+        axios.post(`https://mahseney-hastock.firebaseio.com/orders/${userId}.json?auth=${token}`, {
             items,
             totalAmount,
             date: date.toISOString()
         })
-            .then(response => {
-                dispatch({ type: ADD_ORDER, payload: {
-                    id: response.data.name,
-                    items: items,
-                    totalAmount: totalAmount, 
-                    date: date
-                }})
-            });
+        .then(response => {
+            dispatch({ type: ADD_ORDER, payload: {
+                id: response.data.name,
+                items: items,
+                totalAmount: totalAmount, 
+                date: date
+            }})
+        });
     }
 }

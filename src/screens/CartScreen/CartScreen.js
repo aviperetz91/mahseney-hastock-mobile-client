@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button, FlatList, ActivityIndicator, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import HeaderButton from '../../components/HeaderButton';
 import * as cartActions from '../../store/actions/cartActions';
 import * as ordersActions from '../../store/actions/ordersActions';
 import Colors from '../../constants/Colors';
@@ -14,23 +12,20 @@ import Card from '../../components/Card';
 
 class CartScreen extends Component {
 
-    static navigationOptions = ({navigation}) => {
-        return {
-            headerTitle: "העגלה שלי",
-            headerLeft: 
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item 
-                        title="Menu"
-                        iconName="bars"
-                        onPress={() => navigation.toggleDrawer()}
-                    />
-                </HeaderButtons>,
-        }
+    static navigationOptions = {
+        headerTitle: "העגלה שלי",
     }
 
     componentDidMount = () => {
-        this.props.onLoading();
+        // this.props.onLoading();
         this.props.loadItems();
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if(this.props.userId !== prevProps.userId) {
+            // this.props.onLoading();
+            this.props.loadItems();
+        }
     }
 
     orderButtonPressHandler = () => {
@@ -51,6 +46,16 @@ class CartScreen extends Component {
             return (
                 <View style={styles.centered}>
                     <ActivityIndicator size="large" color={Colors.primary} />
+                </View>
+            )
+        }
+
+        if(!this.props.userId) {
+            return (
+                <View style={styles.centered}>
+                    <Text size="large" color={Colors.primary}>
+                        התחבר למערכת על מנת לצפות בעגלת הקניות שלך
+                    </Text>
                 </View>
             )
         }
@@ -99,7 +104,8 @@ mapStateToProps = state => {
         isLoading: state.cart.isLoading,
         items: state.cart.items,
         totalAmount: state.cart.totalAmount,
-        addedOrder: state.orders.addedOrder
+        addedOrder: state.orders.addedOrder,
+        userId: state.auth.userId
     }
 }
 
